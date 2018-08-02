@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>           
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            </f:facet>
+        </h:head>
+        <h:body   >
+            <ui:composition template="./Templates/temp.xhtml">
+                <ui:define name="Content">
+            <!-- *******************************TU CODIGO AQUI. NO MOVER LO DEMAS.******************************************** -->   
+            <p:panel>
+                <h:form id="mg">
+                    <p:growl id="growl" showDetail="true" life="30000" />
+                </h:form>
+                <h:form id="fPeli">
+                    <p:commandButton value="Agregar nueva reseña" action="#{adminBackBean.agregaNuevaResena}"  update=":fNueva" oncomplete="PF('tablaDialog').show()"/>
+                    <p:dataTable value="#{adminBackBean.listPeli}" var="lista" id="dtPeliculas" emptyMessage="No hay registros para mostrar"
+                                 selectionMode="single" rowKey="#{lista.idpelicula}"  widgetVar="dataTableWidgetVar" editable="true"
+                                         rows="5" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                                          style="font-size: 14px !important; table-layout: fixed !important;"
+                                         multiViewState="true" 
+                                         >
+                        <f:facet name="header">
+                            Lista de peliculas
+                        </f:facet>
+                        
+                        <p:column headerText="id" width="50">
+                            <p:outputLabel value="#{lista.idpelicula}" />
+                        </p:column>
+                        
+                        <p:column headerText="Título" width="250">
+                            <p:outputLabel value="#{lista.titulo}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Sinopsis" width="250" style="height: 75px;">
+                            <p:outputLabel value="#{lista.sinopsis}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Poster" width="250">
+                            <p:outputLabel value="Poster"/>
+                        </p:column>
+                        
+                        <p:column headerText="Reseña" width="250" style="height: 75px;">
+                            <p:outputLabel value="#{lista.resena}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Fecha de estreno" width="250" >
+                            <p:calendar value="#{lista.fechaestreno}" pattern="dd-MM-yyyy" showOn="button"/>
+                        </p:column>
+                        
+                        <p:column style="width:32px;text-align: center">
+                            <p:commandButton update=":fPeli, :formDetalle" oncomplete="PF('detalle').show()" icon="ui-icon-search" title="View">
+                                <f:setPropertyActionListener value="#{lista}" target="#{adminBackBean.selectedPeli}" />
+                           </p:commandButton>
+                       </p:column>
+                        
+                    </p:dataTable>
+                    
+                </h:form>
+            </p:panel>
+            <p:dialog header="Información" widgetVar="tablaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="position: fixed !important;">
+                <h:form id="fNueva">
+                    
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Título"/>
+                        <p:inputText value="#{adminBackBean.nuevaPeli.titulo}" required="true" requiredMessage="Titulo requerido"/>
+                        
+                        <p:outputLabel value="Sinopsis"/>
+                        <p:inputTextarea value="#{adminBackBean.nuevaPeli.sinopsis}" required="true" requiredMessage="Sinopsis requerida"/>
+                        
+                        <p:outputLabel value="Poster"/>
+                        <p:outputLabel value="Poster a subir"/>
+                        
+                        <p:outputLabel value="Reseña"/>
+                        <p:inputTextarea  value="#{adminBackBean.nuevaPeli.resena}" required="true" requiredMessage="Reseña requerida"/>
+                        
+                        <p:outputLabel value="Fecha Estreno"/>
+                        <p:calendar value="#{adminBackBean.nuevaPeli.fechaestreno}"/>
+                        
+                        <p:commandButton value="Guardar" actionListener="#{adminBackBean.guardaNuevaPeli}" oncomplete="PF('tablaDialog').hide()" update="mg:growl,:fPeli"/>
+                    </p:panelGrid>
+                    
+                </h:form>
+                
+            </p:dialog>
+            
+            <p:dialog header="Detalle de pelicula" modal="true" widgetVar="detalle" showEffect="fade" hideEffect="fade" style="position: fixed !important;">
+                <h:form id="formDetalle">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Titulo"/>
+                        <p:inputText value="#{adminBackBean.selectedPeli.titulo}"/>
+
+                        <p:outputLabel value="Sinopsis"/>
+                        <p:inputText value="#{adminBackBean.selectedPeli.sinopsis}"/>
+
+                        <p:outputLabel value="Poster"/>
+                        <p:outputLabel value="Poster"/>
+
+                        <p:outputLabel value="Reseña"/>
+                        <p:inputTextarea value="#{adminBackBean.selectedPeli.resena}"/>
+
+                        <p:outputLabel value="Fecha de Estreno"/>
+                        <p:calendar value="#{adminBackBean.selectedPeli.fechaestreno}"/>
+
+                        
+                    </p:panelGrid>
+                    
+                    <br/>
+                    
+                    <p:panelGrid columns="2">
+                        <p:commandButton value="Actualizar" actionListener="#{adminBackBean.modifica}" oncomplete="PF('detalle').hide()" update="mg:growl, :fPeli"/>                        
+                        <p:commandButton value="Eliminar" actionListener="#{adminBackBean.elimina}" oncomplete="PF('detalle').hide()" update="mg:growl, :fPeli"/>
+                    </p:panelGrid>
+                    
+                    
+                </h:form>
+            </p:dialog>
+            
+            <!-- ************************************************************************************************************* -->           
+            </ui:define>
+          </ui:composition> 
+        </h:body>
+    </f:view>
+</html>

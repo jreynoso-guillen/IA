@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
+
+    
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Gps-Vehiculos</title>
+        <style type="text/css">
+            #contenido{
+                min-height: 50%;
+                width: 85%;
+                margin: 0 auto 0 auto;
+            }
+            
+            
+            
+            
+            #footer{
+                min-height:100px;
+            }
+            
+            
+            
+        </style>
+    
+
+    <body>
+    <br/>
+    <br/>
+    <br/>
+    
+        <div id="contenido">
+                <ui:insert name="Menu">
+                    <ui:include src="../adminBar.xhtml"/>
+                </ui:insert>
+                <ui:insert name="Content">
+                    Content
+                </ui:insert>
+                 <ui:insert name="Ajax">
+
+                    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />                          
+
+                    <p:dialog widgetVar="statusDialog" visible="false" styleClass="transparente" modal="false" closable="false" resizable="false" draggable="false" showHeader="false"  ><!--position="right,bottom"-->
+
+                        <h:graphicImage name="/imagenes/progressbar.gif" width="200" height="200" />
+
+                    </p:dialog>  
+
+                </ui:insert>
+            </div> 
+    </body>
+</html>

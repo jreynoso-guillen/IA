@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>           
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            </f:facet>
+        </h:head>
+        <h:body   >
+            
+            <!-- *******************************TU CODIGO AQUI. NO MOVER LO DEMAS.******************************************** -->   
+            
+            <center>
+                <p:panel header="Panel de administracion " style=" width: 25%; border-top: 25px;">
+                    <center>
+                        <h:form>
+                            <p:growl id="growl" showDetail="true" sticky="false" />
+                            <p:inputText id="userId" value="#{adminBackBean.usuario}" placeholder="Usuario" required="true" requiredMessage="Ingrese un usuario valido"/>
+                                <br/>
+                                <p:password id="userPass" value="#{adminBackBean.pass}" placeholder="Contraseña" required="true" requiredMessage="Ingrese una contraseña"/>
+                                <br/>
+                                
+                                <p:commandButton value="Iniciar session" action="#{adminBackBean.login}" ajax="false"/>
+                            
+                        </h:form>
+                        
+                    </center>
+                    
+                </p:panel>    
+            </center>
+            
+            
+            
+            <!-- ************************************************************************************************************* -->           
+        </h:body>
+    </f:view>
+</html>
